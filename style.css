@@ -1,0 +1,594 @@
+/* Основные переменные - неоновая тема */
+:root {
+    --primary-color: #00ffff;
+    --primary-glow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff;
+    --secondary-color: #4d4dff;
+    --text-color: #e0e0ff;
+    --light-bg: #0a0a1a;
+    --shadow: 0 4px 15px rgba(0, 255, 255, 0.2);
+    --dark-bg: #050510;
+}
+
+/* Базовые стили */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Orbitron', sans-serif;
+    background: linear-gradient(135deg, #000000, #0a0a2a, #000033, #000000);
+    color: var(--text-color);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+    line-height: 1.6;
+}
+
+/* Декоративные элементы - убираем старые */
+.decor {
+    display: none;
+}
+
+/* Анимированные созвездия */
+.constellations {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.constellation {
+    position: absolute;
+    opacity: 0;
+    animation: fallingStar linear infinite;
+    filter: drop-shadow(0 0 5px #00ffff) drop-shadow(0 0 10px #4d4dff);
+}
+
+@keyframes fallingStar {
+    0% {
+        top: -10%;
+        transform: translateX(0) rotate(0deg);
+        opacity: 0;
+    }
+    10% { 
+        opacity: 1; 
+    }
+    90% { 
+        opacity: 1; 
+    }
+    100% {
+        top: 110%;
+        transform: translateX(100px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Глитч-эффект для текста */
+@keyframes glitch {
+    0% { transform: translate(0); }
+    20% { transform: translate(-2px, 2px); }
+    40% { transform: translate(-2px, -2px); }
+    60% { transform: translate(2px, 2px); }
+    80% { transform: translate(2px, -2px); }
+    100% { transform: translate(0); }
+}
+
+/* Заставка */
+.splash-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 1000;
+}
+
+.photo-frame {
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    padding: 10px;
+    background: linear-gradient(45deg, #00ffff, #4d4dff, #00ffff);
+    box-shadow: var(--primary-glow);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    animation: pulse 2s infinite;
+}
+
+.photo-frame img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #00ffff;
+}
+
+.splash-text {
+    margin-top: 20px;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--primary-color);
+    text-align: center;
+    max-width: 80%;
+    text-shadow: var(--primary-glow);
+    animation: glitch 3s infinite;
+}
+
+/* Основная страница */
+.main-page {
+    display: none;
+    padding: 30px 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.main-page h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    color: var(--primary-color);
+    text-shadow: var(--primary-glow);
+    letter-spacing: 2px;
+    position: relative;
+}
+
+.main-page h1::before {
+    content: attr(data-text);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    color: var(--secondary-color);
+    animation: glitch 2s infinite;
+    opacity: 0.5;
+}
+
+.handwriting {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    font-size: 1.2em;
+}
+
+.heart {
+    animation: heartbeat 1.5s ease-in-out infinite;
+    color: #ff4d4d;
+    text-shadow: 0 0 10px #ff4d4d, 0 0 20px #ff4d4d;
+}
+
+@keyframes heartbeat {
+    0% { transform: scale(1); }
+    25% { transform: scale(1.1); }
+    50% { transform: scale(1); }
+    75% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+/* Сетка уровней */
+.levels-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.level-btn {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 10px;
+    border: 2px solid var(--primary-color);
+    background: rgba(0, 10, 20, 0.8);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.2rem;
+    color: var(--primary-color);
+    cursor: pointer;
+    transition: all 0.3s, transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 10px rgba(0, 255, 255, 0.1);
+    position: relative;
+    backdrop-filter: blur(2px);
+}
+
+.level-btn:hover:not(.completed) {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: var(--primary-glow);
+    background: rgba(0, 255, 255, 0.1);
+    border-color: var(--primary-color);
+    color: white;
+}
+
+.level-btn.completed {
+    background: rgba(0, 255, 255, 0.2);
+    color: white;
+    border-color: var(--primary-color);
+    box-shadow: var(--primary-glow);
+    cursor: default;
+}
+
+/* Специальный стиль для последнего уровня */
+#level-10 {
+    background: linear-gradient(45deg, #00ffff, #4d4dff);
+    color: black;
+    font-weight: bold;
+}
+
+#level-10::after {
+    content: "💙";
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    font-size: 1.5rem;
+    animation: pulse 1.5s infinite;
+    filter: drop-shadow(0 0 5px #00ffff);
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.3); opacity: 0.8; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* Модальные окна */
+.modal-overlay, .letter-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1001;
+    backdrop-filter: blur(5px);
+}
+
+.modal, .letter-modal {
+    background: rgba(10, 10, 30, 0.95);
+    border-radius: 15px;
+    padding: 25px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: var(--primary-glow);
+    border: 2px solid var(--primary-color);
+    position: relative;
+    backdrop-filter: blur(10px);
+}
+
+.modal-header, .letter-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.modal-title {
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 0;
+    text-shadow: 0 0 5px var(--primary-color);
+}
+
+.close-btn {
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--primary-color);
+    transition: transform 0.2s, text-shadow 0.2s;
+}
+
+.close-btn:hover {
+    transform: scale(1.2);
+    text-shadow: var(--primary-glow);
+}
+
+.modal-riddle {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    line-height: 1.5;
+    text-align: center;
+    color: var(--text-color);
+}
+
+.crossword-input {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.crossword-input input {
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    font-size: 1.2rem;
+    border: 2px solid var(--primary-color);
+    border-radius: 5px;
+    transition: all 0.2s;
+    font-family: 'Orbitron', sans-serif;
+    background: rgba(0, 0, 0, 0.8);
+    color: var(--primary-color);
+    text-transform: uppercase;
+}
+
+.crossword-input input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: var(--primary-glow);
+    background: black;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 12px;
+    background: transparent;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+    border-radius: 8px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.submit-btn:hover {
+    background: var(--primary-color);
+    color: black;
+    box-shadow: var(--primary-glow);
+    transform: translateY(-2px);
+}
+
+.submit-btn:active {
+    transform: translateY(0);
+}
+
+/* Окно письма */
+.letter-modal {
+    text-align: center;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.letter-image {
+    max-width: 100%;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    box-shadow: var(--primary-glow);
+    border: 2px solid var(--primary-color);
+}
+
+.letter-text {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 15px;
+    text-align: left;
+    color: var(--text-color);
+}
+
+.letter-signature {
+    margin-top: 20px;
+    font-style: italic;
+    text-align: right;
+    font-size: 1.2rem;
+    color: var(--primary-color);
+    text-shadow: 0 0 5px var(--primary-color);
+}
+
+#signature-name {
+    font-weight: 700;
+    text-decoration: underline;
+}
+
+/* Контроль музыки */
+.music-control {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    background: rgba(0, 255, 255, 0.1);
+    border: 2px solid var(--primary-color);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: var(--primary-glow);
+    z-index: 100;
+    transition: all 0.3s;
+    user-select: none;
+    color: var(--primary-color);
+}
+
+.music-control:hover {
+    transform: scale(1.1);
+    background: var(--primary-color);
+    color: black;
+}
+
+/* Холст для конфетти */
+#confetti-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    pointer-events: none;
+}
+
+/* Адаптация под мобильные */
+@media (max-width: 600px) {
+    .levels-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    
+    .modal, .letter-modal {
+        padding: 15px;
+    }
+    
+    .main-page h1 {
+        font-size: 2rem;
+    }
+    
+    .photo-frame {
+        width: 180px;
+        height: 180px;
+    }
+    
+    .photo-frame img {
+        width: 160px;
+        height: 160px;
+    }
+    
+    .splash-text {
+        font-size: 1.2rem;
+    }
+}
+
+/* Анимации */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+/* Стили для контейнера кнопки сброса */
+.reset-container {
+  display: flex;
+  justify-content: center;
+  margin: 30px 0;
+  padding: 0 20px;
+}
+
+/* Основные стили кнопки */
+.reset-btn {
+  background: rgba(0, 255, 255, 0.1);
+  color: var(--primary-color);
+  border: 2px solid var(--primary-color);
+  padding: 12px 25px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.4s ease;
+  box-shadow: 0 4px 15px rgba(0, 255, 255, 0.1);
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(2px);
+}
+
+/* Эффект при наведении */
+.reset-btn:hover {
+  background: rgba(0, 255, 255, 0.2);
+  transform: translateY(-3px);
+  box-shadow: var(--primary-glow);
+}
+
+/* Эффект при нажатии */
+.reset-btn:active {
+  transform: translateY(0);
+}
+
+/* Стили для иконки */
+.reset-icon {
+  font-size: 18px;
+  transition: all 0.5s ease;
+}
+
+/* Анимация иконки при наведении */
+.reset-btn:hover .reset-icon {
+  transform: rotate(180deg);
+}
+
+/* Стили для текста */
+.reset-text {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+/* Декоративный элемент (звезда вместо лепестка) */
+.reset-btn::after {
+  content: "⭐";
+  position: absolute;
+  right: -20px;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0;
+  transition: all 0.5s ease;
+  filter: drop-shadow(0 0 5px #00ffff);
+}
+
+/* Показываем звезду при наведении */
+.reset-btn:hover::after {
+  right: 15px;
+  opacity: 1;
+}
+
+/* Стили для состояния после сброса */
+.reset-btn.reset-success {
+  background: rgba(0, 255, 255, 0.2);
+  border-color: #00ffff;
+  color: #00ffff;
+}
+
+.reset-btn.reset-success .reset-icon {
+  transform: none;
+}
+
+/* Адаптация для мобильных */
+@media (max-width: 600px) {
+  .reset-btn {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+  
+  .reset-text {
+    display: none;
+  }
+  
+  .reset-btn::after {
+    display: none;
+  }
+  
+  .reset-btn .reset-icon {
+    font-size: 20px;
+  }
+}
+
+/* Неоновая подсветка для текста */
+.glow-text {
+    text-shadow: 0 0 10px var(--primary-color), 0 0 20px var(--primary-color), 0 0 30px var(--primary-color);
+}
+
+/* Анимация мерцания */
+@keyframes flicker {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
+}
+
+.flicker {
+    animation: flicker 3s infinite;
+}

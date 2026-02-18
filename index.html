@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10 level</title>
+    <meta name="theme-color" content="#0a0a2a">
+    <meta name="description" content="Романтическая игра с 10 загадками">
+    
+    <!-- Шрифты -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&family=Montserrat:wght@300&display=swap" rel="stylesheet">
+    
+    <!-- Библиотеки -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
+    
+    <!-- Иконки -->
+    <link rel="icon" href="assets/images/favicon.ico">
+    
+    <!-- Стили -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+</head>
+<body>
+    <!-- Анимированные созвездия (вместо лепестков) -->
+    <div class="constellations"></div>
+    
+    <!-- Заставка -->
+    <div class="splash-screen animate__animated animate__fadeIn">
+        <div class="photo-frame">
+            <img src="assets/images/your_photo.jpg" alt="Наше фото">
+        </div>
+        <div class="splash-text">10 Levels only for you...</div>
+    </div>
+    
+    <!-- Основной контент -->
+    <div class="main-page">
+        <h1><span class="handwriting">10</span> Levels only for you <span class="heart">💙</span></h1>
+        <div class="levels-grid"></div>
+    </div>
+    
+    <!-- Модальное окно загадки -->
+    <div class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 class="modal-title">Уровень <span id="current-level">1</span></h2>
+                <div class="close-btn">✕</div>
+            </div>
+            <div class="modal-content">
+                <div class="modal-riddle">Загадка...</div>
+                <div class="crossword-input"></div>
+                <button class="submit-btn">Ответить</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Окно письма -->
+    <div class="letter-overlay">
+        <div class="letter-modal">
+            <div class="letter-header">
+                <h2>💙Умничка💙</h2>
+                <div class="close-btn">✕</div>
+            </div>
+            <img src="assets/images/letter-image.jpg" class="letter-image">
+            <p class="letter-text"></p>
+            <div class="letter-signature">Я знал что ты справишься   <span id="signature-name">[Имя]</span></div>
+        </div>
+    </div>
+    
+    <!-- Аудио и конфетти -->
+    <audio id="bgMusic" loop>
+        <source src="assets/audio/your_song.mp3" type="audio/mpeg">
+    </audio>
+    <div class="music-control">🎵</div>
+    <canvas id="confetti-canvas"></canvas>
+
+<div class="reset-container">
+  <button onclick="resetProgress()" class="reset-btn" title="Сбросить прогресс">
+    <span class="reset-icon">🔄</span> 
+    <span class="reset-text">Сбросить прогресс</span>
+  </button>
+</div>
+    
+    <!-- Скрипты -->
+    <script src="script.js"></script>
+</body>
+</html>
